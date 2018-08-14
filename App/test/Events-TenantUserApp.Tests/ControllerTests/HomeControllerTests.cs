@@ -22,7 +22,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
     {
         private readonly HomeController _homeController;
 
-        public HomeControllerTests(ILogger<HomeController> logger)
+        public HomeControllerTests(ILogger<HomeController> logger, IUtilities utilities)
         {
             // Arrange
             var mockCatalogRepo = new Mock<ICatalogRepository>();
@@ -31,7 +31,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
             mockCatalogRepo.Setup(repo => repo.GetAllTenants()).Returns(GetTenants());
             mockTenantRepo.Setup(repo => repo.GetVenueDetails(1234646)).Returns(GetVenueDetails());
 
-            _homeController = new HomeController(mockCatalogRepo.Object, mockTenantRepo.Object, logger);
+            _homeController = new HomeController(mockCatalogRepo.Object, mockTenantRepo.Object, logger, utilities);
         }
 
         [Fact]

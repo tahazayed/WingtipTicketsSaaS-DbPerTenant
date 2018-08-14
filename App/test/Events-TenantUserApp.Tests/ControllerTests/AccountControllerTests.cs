@@ -18,7 +18,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
     {
         private readonly AccountController _accountController;
 
-        public AccountControllerTests(IStringLocalizer<AccountController> localizer, IStringLocalizer<BaseController> baseLocalizer, ILogger<AccountController> logger, IConfiguration configuration)
+        public AccountControllerTests(IStringLocalizer<AccountController> localizer, IStringLocalizer<BaseController> baseLocalizer, ILogger<AccountController> logger, IConfiguration configuration, DnsClient.ILookupClient client)
         {
             var mockTenantRepo = new Mock<ITenantRepository>();
             mockTenantRepo.Setup(repo => repo.GetCustomer("test@email.com", 123456)).Returns(GetCustomerAsync());
@@ -28,7 +28,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
 
             var mockUtilities = new Mock<IUtilities>();
 
-            _accountController = new AccountController(localizer, baseLocalizer, mockTenantRepo.Object, mockCatalogRepo.Object, logger, configuration);
+            _accountController = new AccountController(localizer, baseLocalizer, mockTenantRepo.Object, mockCatalogRepo.Object, logger, configuration, client);
 
         }
 
