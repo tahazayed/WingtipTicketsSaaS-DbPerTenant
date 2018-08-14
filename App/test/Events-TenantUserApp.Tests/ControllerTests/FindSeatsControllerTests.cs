@@ -21,7 +21,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
     {
         private readonly FindSeatsController _findSeatsController;
 
-        public FindSeatsControllerTests(IStringLocalizer<FindSeatsController> localizer, IStringLocalizer<BaseController> baseLocalizer, ILogger<FindSeatsController> logger, IConfiguration configuration)
+        public FindSeatsControllerTests(IStringLocalizer<FindSeatsController> localizer, IStringLocalizer<BaseController> baseLocalizer, ILogger<FindSeatsController> logger, IConfiguration configuration, DnsClient.ILookupClient client)
         {
             var mockTenantRepo = new Mock<ITenantRepository>();
             var eventSections = GetEventSections();
@@ -39,7 +39,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
 
             var mockUtilities = new Mock<IUtilities>();
 
-            _findSeatsController = new FindSeatsController(mockTenantRepo.Object, mockCatalogRepo.Object, localizer, baseLocalizer, logger, configuration);
+            _findSeatsController = new FindSeatsController(mockTenantRepo.Object, mockCatalogRepo.Object, localizer, baseLocalizer, logger, configuration, client);
         }
 
         [Fact]

@@ -21,7 +21,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
     {
         private readonly EventsController _eventsController;
 
-        public EventsControllerTests(IStringLocalizer<BaseController> baseLocalizer, ILogger<EventsController> logger, IConfiguration configuration)
+        public EventsControllerTests(IStringLocalizer<BaseController> baseLocalizer, ILogger<EventsController> logger, IConfiguration configuration, DnsClient.ILookupClient client, IUtilities utilities)
         {
             var mockCatalogRepo = new Mock<ICatalogRepository>();
             mockCatalogRepo.Setup(repo => repo.GetTenant("testTenant")).Returns(GetTenantModel());
@@ -33,7 +33,7 @@ namespace Events_TenantUserApp.Tests.ControllerTests
             mockTenantRepo.Setup(repo => repo.GetAllCountries(12345)).Returns(GetCountries());
             mockTenantRepo.Setup(repo => repo.GetEventsForTenant(12345)).Returns(GetEvents());
 
-            _eventsController = new EventsController(mockTenantRepo.Object, mockCatalogRepo.Object, baseLocalizer, logger, configuration);
+            _eventsController = new EventsController(mockTenantRepo.Object, mockCatalogRepo.Object, baseLocalizer, logger, configuration, client, utilities);
 
         }
 
